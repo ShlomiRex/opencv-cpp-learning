@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.0)
+project( DisplayImage )
+find_package( OpenCV REQUIRED )
+INCLUDE_DIRECTORIES( ${CMAKE_CURRENT_SOURCE_DIR}/include )
+add_executable( app src/main.cpp )
+target_link_libraries( app ${OpenCV_LIBS} )

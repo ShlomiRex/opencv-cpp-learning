@@ -1,0 +1,3 @@
+/home/shlomi/Desktop/workspace/opencv/CMakeFiles/rebuild_cache.dir
+/home/shlomi/Desktop/workspace/opencv/CMakeFiles/app.dir
+/home/shlomi/Desktop/workspace/opencv/CMakeFiles/edit_cache.dir
