@@ -123,6 +123,46 @@ app/fast:
 	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/build
 .PHONY : app/fast
 
+#=============================================================================
+# Target rules for targets named gradients
+
+# Build rule for target.
+gradients: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gradients
+.PHONY : gradients
+
+# fast build rule for target.
+gradients/fast:
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/build
+.PHONY : gradients/fast
+
+src/gradients.o: src/gradients.cpp.o
+
+.PHONY : src/gradients.o
+
+# target to build an object file
+src/gradients.cpp.o:
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.o
+.PHONY : src/gradients.cpp.o
+
+src/gradients.i: src/gradients.cpp.i
+
+.PHONY : src/gradients.i
+
+# target to preprocess a source file
+src/gradients.cpp.i:
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.i
+.PHONY : src/gradients.cpp.i
+
+src/gradients.s: src/gradients.cpp.s
+
+.PHONY : src/gradients.s
+
+# target to generate assembly for a file
+src/gradients.cpp.s:
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.s
+.PHONY : src/gradients.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -157,8 +197,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... app"
 	@echo "... edit_cache"
+	@echo "... app"
+	@echo "... gradients"
+	@echo "... src/gradients.o"
+	@echo "... src/gradients.i"
+	@echo "... src/gradients.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -78,8 +78,10 @@ CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/flann/samp
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/flann/saving.h
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/flann/timer.h
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/highgui.hpp
+CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/highgui/highgui.hpp
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/imgcodecs.hpp
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/imgproc.hpp
+CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/imgproc/imgproc.hpp
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/ml.hpp
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/ml/ml.inl.hpp
 CMakeFiles/app.dir/src/main.cpp.o: /usr/local/include/opencv4/opencv2/objdetect.hpp

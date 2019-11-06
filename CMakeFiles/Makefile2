@@ -97,6 +97,43 @@ clean: CMakeFiles/app.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/gradients.dir
+
+# All Build rule for target.
+CMakeFiles/gradients.dir/all:
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/depend
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/shlomi/Desktop/workspace/opencv/CMakeFiles --progress-num=3,4 "Built target gradients"
+.PHONY : CMakeFiles/gradients.dir/all
+
+# Include target in all.
+all: CMakeFiles/gradients.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/gradients.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shlomi/Desktop/workspace/opencv/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gradients.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/shlomi/Desktop/workspace/opencv/CMakeFiles 0
+.PHONY : CMakeFiles/gradients.dir/rule
+
+# Convenience name for target.
+gradients: CMakeFiles/gradients.dir/rule
+
+.PHONY : gradients
+
+# clean rule for target.
+CMakeFiles/gradients.dir/clean:
+	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/clean
+.PHONY : CMakeFiles/gradients.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/gradients.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.
