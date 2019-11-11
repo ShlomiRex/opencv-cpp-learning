@@ -52,7 +52,6 @@ void blurring()
   double delta;
   int ddepth;
   int kernel_size;
-  char* window_name = "filter2D Demo";
 
   int c;
 
@@ -84,7 +83,7 @@ void blurring()
 
       /// Apply filter
       filter2D(src, dst, ddepth , kernel, anchor, delta, BORDER_DEFAULT );
-      imshow( window_name, dst );
+      imshow( "filter2D Demo", dst );
       ind++;
     }
 
@@ -256,14 +255,33 @@ void image_color_histogram()
 	waitKey();
 }
 
+void adaptive_threshold() {
+	Mat mat, out, out2, out3;
+    mat = imread("assets/lena.png", IMREAD_COLOR);
+	cvtColor(mat, mat, COLOR_BGR2GRAY);
+
+	threshold(mat, out3, 127, 255, THRESH_BINARY);
+	imshow("Global threshold (v=127)", out3);
+
+	adaptiveThreshold(mat, out, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 11, 2);
+	imshow("Adaptive Threshold: Binary Mean", out);
+
+	adaptiveThreshold(mat, out2, 255, ADAPTIVE_THRESH_GAUSSIAN_C, THRESH_BINARY, 11, 2);
+	imshow("Adaptive Threshold: Binary Gaussian", out2);
+
+	waitKey();
+	destroyAllWindows();
+}
+
 
 int main()
 {
-	image_color_histogram();
+	//image_color_histogram();
 	//binary_trunc_mask();
 	//color_mask();
     //rgb();
     //blurring();
     //laplican();
+	adaptive_threshold();
     return 0;
 }
