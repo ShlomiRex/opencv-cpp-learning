@@ -1,6 +1,5 @@
 /home/shlomi/Desktop/workspace/opencv/CMakeFiles/demo.dir
-/home/shlomi/Desktop/workspace/opencv/CMakeFiles/rebuild_cache.dir
-/home/shlomi/Desktop/workspace/opencv/CMakeFiles/hist_eq.dir
 /home/shlomi/Desktop/workspace/opencv/CMakeFiles/edit_cache.dir
 /home/shlomi/Desktop/workspace/opencv/CMakeFiles/app.dir
-/home/shlomi/Desktop/workspace/opencv/CMakeFiles/gradients.dir
+/home/shlomi/Desktop/workspace/opencv/CMakeFiles/rebuild_cache.dir
+/home/shlomi/Desktop/workspace/opencv/CMakeFiles/hist_eq.dir

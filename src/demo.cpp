@@ -39,6 +39,7 @@ void laplican() {
     imshow("Laplican", mat3);
     
     waitKey();
+    destroyAllWindows();
 }
 
 void blurring()
@@ -86,12 +87,183 @@ void blurring()
       imshow( window_name, dst );
       ind++;
     }
-    destroyWindow(window_name);
+
+    destroyAllWindows();
 }
+
+/*
+This function shows pixel manipulation with 1 channel and 3 channels
+*/
+void rgb() {
+    Mat mat;
+	mat = imread("assets/lena.png", IMREAD_COLOR);
+	vector<Mat> bgr_planes;
+	split(mat, bgr_planes);
+	imshow("Original", mat);
+	imshow("Blue", bgr_planes[0]);
+	imshow("Green", bgr_planes[1]);
+	imshow("Red", bgr_planes[2]);
+	
+	Mat mat1, mat2, mat3;
+	cvtColor(bgr_planes[0], mat1, COLOR_GRAY2BGR); //Blue
+	cvtColor(bgr_planes[1], mat2, COLOR_GRAY2BGR); //Green
+	cvtColor(bgr_planes[2], mat3, COLOR_GRAY2BGR); //Red
+
+	cout << "BGR 3 channels type:" << mat1.type() << endl;
+
+	//Because we converted GRAY to BGR, we have 3 channels of color instead of just 1. 
+	for(int i = 0; i < mat1.rows; i++) {
+		for(int j = 0; j < mat1.cols; j++) {
+			Vec3b& colour = mat1.at<Vec3b>(j, i);
+			//colour[0] = 0 //Blue
+			colour[1] = 0; //Green
+			colour[2] = 0; //Red
+		}
+	}
+
+	for(int i = 0; i < mat2.rows; i++) {
+		for(int j = 0; j < mat2.cols; j++) {
+			Vec3b& colour = mat2.at<Vec3b>(j, i);
+			colour[0] = 0; //Blue
+			//colour[1] = 0; //Green
+			colour[2] = 0; //Red
+		}
+	}
+
+	for(int i = 0; i < mat3.rows; i++) {
+		for(int j = 0; j < mat3.cols; j++) {
+			Vec3b& colour = mat3.at<Vec3b>(j, i);
+			colour[0] = 0; //Blue
+			colour[1] = 0; //Green
+			//colour[2] = 0; //Red
+		}
+	}
+	
+	imshow("Blue 2", mat1);
+	imshow("Green 2", mat2);
+	imshow("Red 2", mat3);
+
+	waitKey();
+    destroyAllWindows();
+}
+
+/*
+This demo shows use of mask (white and black) by color
+Tip: https://stackoverflow.com/questions/10469235/opencv-apply-mask-to-a-color-image
+*/
+void binary_trunc_mask() {
+	Mat mat, gray;
+	mat = imread("assets/lena.png", IMREAD_COLOR);
+	cvtColor(mat, gray, COLOR_BGR2GRAY);
+	imshow("Origional", mat);
+	imshow("Gray", gray);
+
+	Mat bin_mask, inv_bin_mask, trunc_mask, output, output2, output3;
+
+	threshold(gray, bin_mask, 127, 255, THRESH_BINARY);
+	mat.copyTo(output, bin_mask);
+	imshow("Binary Mask", bin_mask);
+	imshow("Binary mask applied", output);
+
+	threshold(gray, inv_bin_mask, 127, 255, THRESH_BINARY_INV);
+	mat.copyTo(output2, inv_bin_mask);
+	imshow("Inverted Binary Mask", inv_bin_mask);
+	imshow("Inverted binary mask applied", output2);
+
+	threshold(gray, trunc_mask, 127, 255, THRESH_TRUNC);
+	mat.copyTo(output3, trunc_mask);
+	imshow("Trunc Mask", trunc_mask);
+	imshow("Trunc mask applied", output3);
+
+	waitKey();
+	destroyAllWindows();
+}
+
+void color_mask() {
+	Mat mat, gray;
+	mat = imread("assets/lena.png", IMREAD_COLOR);
+	cvtColor(mat, gray, COLOR_BGR2GRAY);
+	imshow("Origional", mat);
+	imshow("Gray", gray);
+
+	vector<Mat> bgr_planes;
+	split(mat, bgr_planes);
+
+	Mat blue = bgr_planes[0], green =  bgr_planes[1], red = bgr_planes[2];
+	imshow("Blue", blue);
+	imshow("Green",green);
+	imshow("Red", red);
+
+	Mat bin_mask_blue, output, output2;
+
+	threshold(blue, bin_mask_blue, 127, 255, THRESH_BINARY);
+	mat.copyTo(output, bin_mask_blue);
+	imshow("Binary Mask (blue)", bin_mask_blue);
+	imshow("Binary mask (blue) applied", output);
+
+	output.copyTo(output2);
+	for(int i = 0; i < output2.rows; i++) {
+		for(int j = 0; j < output2.cols; j++) {
+			Vec3b& colour = output2.at<Vec3b>(j, i);
+			//Image is BGR, so, change only channel #1 and #2 leave #0 as is
+			colour[1] = 0;
+			colour[2] = 0;
+
+		}
+	}
+	imshow("Binary mask applied (blue), only blue channel", output2);
+
+	waitKey();
+	destroyAllWindows();
+}
+//Code: https://docs.opencv.org/master/d8/dbc/tutorial_histogram_calculation.html
+void image_color_histogram()
+{
+	Mat src = imread("assets/lena.png", IMREAD_COLOR);
+
+	vector<Mat> bgr_planes;
+	split(src, bgr_planes);
+
+	int histSize = 256;
+	float range[] = { 0, 256 }; //the upper boundary is exclusive
+	const float* histRange = { range };
+
+	bool uniform = true, accumulate = false;
+	Mat b_hist, g_hist, r_hist;
+	calcHist(&bgr_planes[0], 1, 0, Mat(), b_hist, 1, &histSize, &histRange, uniform, accumulate);
+	calcHist(&bgr_planes[1], 1, 0, Mat(), g_hist, 1, &histSize, &histRange, uniform, accumulate);
+	calcHist(&bgr_planes[2], 1, 0, Mat(), r_hist, 1, &histSize, &histRange, uniform, accumulate);
+	int hist_w = 512, hist_h = 400;
+	int bin_w = cvRound((double)hist_w / histSize);
+	Mat histImage(hist_h, hist_w, CV_8UC3, Scalar(0, 0, 0));
+	normalize(b_hist, b_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat());
+	normalize(g_hist, g_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat());
+	normalize(r_hist, r_hist, 0, histImage.rows, NORM_MINMAX, -1, Mat());
+	for (int i = 1; i < histSize; i++)
+	{
+		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(b_hist.at<float>(i - 1))),
+			Point(bin_w * (i), hist_h - cvRound(b_hist.at<float>(i))),
+			Scalar(255, 0, 0), 2, 8, 0);
+		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(g_hist.at<float>(i - 1))),
+			Point(bin_w * (i), hist_h - cvRound(g_hist.at<float>(i))),
+			Scalar(0, 255, 0), 2, 8, 0);
+		line(histImage, Point(bin_w * (i - 1), hist_h - cvRound(r_hist.at<float>(i - 1))),
+			Point(bin_w * (i), hist_h - cvRound(r_hist.at<float>(i))),
+			Scalar(0, 0, 255), 2, 8, 0);
+	}
+	imshow("Source image", src);
+	imshow("calcHist Demo", histImage);
+	waitKey();
+}
+
 
 int main()
 {
-    blurring();
-    laplican();
+	image_color_histogram();
+	//binary_trunc_mask();
+	//color_mask();
+    //rgb();
+    //blurring();
+    //laplican();
     return 0;
 }

@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/shlomi/Desktop/workspace/opencv
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -124,19 +124,6 @@ demo/fast:
 .PHONY : demo/fast
 
 #=============================================================================
-# Target rules for targets named hist_eq
-
-# Build rule for target.
-hist_eq: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hist_eq
-.PHONY : hist_eq
-
-# fast build rule for target.
-hist_eq/fast:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/build
-.PHONY : hist_eq/fast
-
-#=============================================================================
 # Target rules for targets named app
 
 # Build rule for target.
@@ -150,17 +137,17 @@ app/fast:
 .PHONY : app/fast
 
 #=============================================================================
-# Target rules for targets named gradients
+# Target rules for targets named hist_eq
 
 # Build rule for target.
-gradients: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 gradients
-.PHONY : gradients
+hist_eq: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hist_eq
+.PHONY : hist_eq
 
 # fast build rule for target.
-gradients/fast:
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/build
-.PHONY : gradients/fast
+hist_eq/fast:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/build
+.PHONY : hist_eq/fast
 
 src/demo.o: src/demo.cpp.o
 
@@ -188,33 +175,6 @@ src/demo.s: src/demo.cpp.s
 src/demo.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.s
 .PHONY : src/demo.cpp.s
-
-src/gradients.o: src/gradients.cpp.o
-
-.PHONY : src/gradients.o
-
-# target to build an object file
-src/gradients.cpp.o:
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.o
-.PHONY : src/gradients.cpp.o
-
-src/gradients.i: src/gradients.cpp.i
-
-.PHONY : src/gradients.i
-
-# target to preprocess a source file
-src/gradients.cpp.i:
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.i
-.PHONY : src/gradients.cpp.i
-
-src/gradients.s: src/gradients.cpp.s
-
-.PHONY : src/gradients.s
-
-# target to generate assembly for a file
-src/gradients.cpp.s:
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.s
-.PHONY : src/gradients.cpp.s
 
 src/hist_eq.o: src/hist_eq.cpp.o
 
@@ -277,17 +237,13 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... demo"
-	@echo "... rebuild_cache"
-	@echo "... hist_eq"
 	@echo "... edit_cache"
 	@echo "... app"
-	@echo "... gradients"
+	@echo "... rebuild_cache"
+	@echo "... hist_eq"
 	@echo "... src/demo.o"
 	@echo "... src/demo.i"
 	@echo "... src/demo.s"
-	@echo "... src/gradients.o"
-	@echo "... src/gradients.i"
-	@echo "... src/gradients.s"
 	@echo "... src/hist_eq.o"
 	@echo "... src/hist_eq.i"
 	@echo "... src/hist_eq.s"

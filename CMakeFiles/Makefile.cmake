@@ -49,7 +49,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/demo.dir/DependInfo.cmake"
-  "CMakeFiles/hist_eq.dir/DependInfo.cmake"
   "CMakeFiles/app.dir/DependInfo.cmake"
-  "CMakeFiles/gradients.dir/DependInfo.cmake"
+  "CMakeFiles/hist_eq.dir/DependInfo.cmake"
   )

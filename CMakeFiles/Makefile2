@@ -97,43 +97,6 @@ clean: CMakeFiles/demo.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/hist_eq.dir
-
-# All Build rule for target.
-CMakeFiles/hist_eq.dir/all:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/depend
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/shlomi/Desktop/workspace/opencv/CMakeFiles --progress-num=7,8 "Built target hist_eq"
-.PHONY : CMakeFiles/hist_eq.dir/all
-
-# Include target in all.
-all: CMakeFiles/hist_eq.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/hist_eq.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shlomi/Desktop/workspace/opencv/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/hist_eq.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/shlomi/Desktop/workspace/opencv/CMakeFiles 0
-.PHONY : CMakeFiles/hist_eq.dir/rule
-
-# Convenience name for target.
-hist_eq: CMakeFiles/hist_eq.dir/rule
-
-.PHONY : hist_eq
-
-# clean rule for target.
-CMakeFiles/hist_eq.dir/clean:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/clean
-.PHONY : CMakeFiles/hist_eq.dir/clean
-
-# clean rule for target.
-clean: CMakeFiles/hist_eq.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/app.dir
 
 # All Build rule for target.
@@ -171,39 +134,39 @@ clean: CMakeFiles/app.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/gradients.dir
+# Target rules for target CMakeFiles/hist_eq.dir
 
 # All Build rule for target.
-CMakeFiles/gradients.dir/all:
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/depend
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/shlomi/Desktop/workspace/opencv/CMakeFiles --progress-num=5,6 "Built target gradients"
-.PHONY : CMakeFiles/gradients.dir/all
+CMakeFiles/hist_eq.dir/all:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/depend
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/shlomi/Desktop/workspace/opencv/CMakeFiles --progress-num=5,6 "Built target hist_eq"
+.PHONY : CMakeFiles/hist_eq.dir/all
 
 # Include target in all.
-all: CMakeFiles/gradients.dir/all
+all: CMakeFiles/hist_eq.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/gradients.dir/rule: cmake_check_build_system
+CMakeFiles/hist_eq.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/shlomi/Desktop/workspace/opencv/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gradients.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/hist_eq.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/shlomi/Desktop/workspace/opencv/CMakeFiles 0
-.PHONY : CMakeFiles/gradients.dir/rule
+.PHONY : CMakeFiles/hist_eq.dir/rule
 
 # Convenience name for target.
-gradients: CMakeFiles/gradients.dir/rule
+hist_eq: CMakeFiles/hist_eq.dir/rule
 
-.PHONY : gradients
-
-# clean rule for target.
-CMakeFiles/gradients.dir/clean:
-	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/clean
-.PHONY : CMakeFiles/gradients.dir/clean
+.PHONY : hist_eq
 
 # clean rule for target.
-clean: CMakeFiles/gradients.dir/clean
+CMakeFiles/hist_eq.dir/clean:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/clean
+.PHONY : CMakeFiles/hist_eq.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/hist_eq.dir/clean
 
 .PHONY : clean
 
