@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named demo
+
+# Build rule for target.
+demo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 demo
+.PHONY : demo
+
+# fast build rule for target.
+demo/fast:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
+.PHONY : demo/fast
+
+#=============================================================================
+# Target rules for targets named hist_eq
+
+# Build rule for target.
+hist_eq: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hist_eq
+.PHONY : hist_eq
+
+# fast build rule for target.
+hist_eq/fast:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/build
+.PHONY : hist_eq/fast
+
+#=============================================================================
 # Target rules for targets named app
 
 # Build rule for target.
@@ -135,6 +161,33 @@ gradients: cmake_check_build_system
 gradients/fast:
 	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/build
 .PHONY : gradients/fast
+
+src/demo.o: src/demo.cpp.o
+
+.PHONY : src/demo.o
+
+# target to build an object file
+src/demo.cpp.o:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.o
+.PHONY : src/demo.cpp.o
+
+src/demo.i: src/demo.cpp.i
+
+.PHONY : src/demo.i
+
+# target to preprocess a source file
+src/demo.cpp.i:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.i
+.PHONY : src/demo.cpp.i
+
+src/demo.s: src/demo.cpp.s
+
+.PHONY : src/demo.s
+
+# target to generate assembly for a file
+src/demo.cpp.s:
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.s
+.PHONY : src/demo.cpp.s
 
 src/gradients.o: src/gradients.cpp.o
 
@@ -162,6 +215,33 @@ src/gradients.s: src/gradients.cpp.s
 src/gradients.cpp.s:
 	$(MAKE) -f CMakeFiles/gradients.dir/build.make CMakeFiles/gradients.dir/src/gradients.cpp.s
 .PHONY : src/gradients.cpp.s
+
+src/hist_eq.o: src/hist_eq.cpp.o
+
+.PHONY : src/hist_eq.o
+
+# target to build an object file
+src/hist_eq.cpp.o:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/src/hist_eq.cpp.o
+.PHONY : src/hist_eq.cpp.o
+
+src/hist_eq.i: src/hist_eq.cpp.i
+
+.PHONY : src/hist_eq.i
+
+# target to preprocess a source file
+src/hist_eq.cpp.i:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/src/hist_eq.cpp.i
+.PHONY : src/hist_eq.cpp.i
+
+src/hist_eq.s: src/hist_eq.cpp.s
+
+.PHONY : src/hist_eq.s
+
+# target to generate assembly for a file
+src/hist_eq.cpp.s:
+	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/src/hist_eq.cpp.s
+.PHONY : src/hist_eq.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -196,13 +276,21 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... demo"
 	@echo "... rebuild_cache"
+	@echo "... hist_eq"
 	@echo "... edit_cache"
 	@echo "... app"
 	@echo "... gradients"
+	@echo "... src/demo.o"
+	@echo "... src/demo.i"
+	@echo "... src/demo.s"
 	@echo "... src/gradients.o"
 	@echo "... src/gradients.i"
 	@echo "... src/gradients.s"
+	@echo "... src/hist_eq.o"
+	@echo "... src/hist_eq.i"
+	@echo "... src/hist_eq.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
