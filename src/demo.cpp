@@ -273,15 +273,36 @@ void adaptive_threshold() {
 	destroyAllWindows();
 }
 
+void otsu_threshold() {
+	Mat mat, gray, out, out2, out3;
+    mat = imread("assets/lena.png", IMREAD_COLOR);
+	cvtColor(mat, gray, COLOR_BGR2GRAY);
+
+	//The value 127 is not used! Otsu algorithem finds optimal value for thresholding (middle of histogram peaks is optimal)
+	threshold(gray, out, 127, 255, THRESH_OTSU);
+
+	imshow("Original", mat);
+	imshow("Gray", gray);
+	imshow("Global threshold (v=127)", out);
+
+	mat.copyTo(out2, out);
+
+	imshow("Threshold mask applied", out2);
+
+	waitKey();
+	destroyAllWindows();
+}
+
 
 int main()
 {
 	//image_color_histogram();
 	//binary_trunc_mask();
+	//otsu_threshold();
 	//color_mask();
     //rgb();
     //blurring();
     //laplican();
-	adaptive_threshold();
+	//adaptive_threshold();
     return 0;
 }
