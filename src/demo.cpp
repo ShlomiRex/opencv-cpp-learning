@@ -274,7 +274,7 @@ void adaptive_threshold() {
 }
 
 void otsu_threshold() {
-	Mat mat, gray, out, out2, out3;
+	Mat mat, gray, out, out2, out3, out4, out5;
     mat = imread("assets/lena.png", IMREAD_COLOR);
 	cvtColor(mat, gray, COLOR_BGR2GRAY);
 
@@ -287,22 +287,73 @@ void otsu_threshold() {
 
 	mat.copyTo(out2, out);
 
-	imshow("Threshold mask applied", out2);
+	imshow("Otsu threshold", out2);
+
+	Size ksize = {5,5};
+	GaussianBlur(gray, out3, ksize, 0);
+	//Notice the sum of THRESH types
+	threshold(out3, out4, 0, 255, THRESH_OTSU + THRESH_BINARY);
+	imshow("Gaussian threshold", out4);
+	mat.copyTo(out5, out4);
+	imshow("Otsu + Binary + Gaussian",out5);
+
 
 	waitKey();
 	destroyAllWindows();
 }
 
+void denoising() {
+	Mat mat, gray, out, out2, out3, out4, out5;
+    mat = imread("assets/lena.png", IMREAD_COLOR);
+	cvtColor(mat, gray, COLOR_BGR2GRAY);
+	imshow("Original", mat);
+
+	fastNlMeansDenoisingColored(mat, out, 12);
+	imshow("Noise Reduction - Fast Mean", out);
+
+	// Create a window
+	namedWindow("My Window", 1);
+
+	//Create trackbar to change brightness
+	int iSliderValue = 25;
+	createTrackbar("Noise reduction - h value", "My Window", &iSliderValue, 50);
+
+	Mat dst;
+	while (true)
+	{
+		//Change the brightness and contrast of the image (For more infomation http://opencv-srf.blogspot.com/2013/07/change-contrast-of-image-or-video.html)
+		
+		//mat.convertTo(dst, -1, 1, iSliderValue); 
+		fastNlMeansDenoisingColored(mat, dst, iSliderValue);
+
+		//show the brightness and contrast adjusted image
+		imshow("My Window", dst);
+
+		// Wait until user press some key for 50ms
+		int iKey = waitKey(50);
+
+		//if user press 'ESC' key
+		if (iKey == 27)
+		{
+			break;
+		}
+	}
+
+	waitKey();
+	destroyAllWindows();
+}
 
 int main()
 {
 	//image_color_histogram();
 	//binary_trunc_mask();
-	//otsu_threshold();
 	//color_mask();
     //rgb();
     //blurring();
+	//otsu_threshold();
     //laplican();
 	//adaptive_threshold();
+
+	denoising();
     return 0;
 }
