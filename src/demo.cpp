@@ -6,6 +6,9 @@
 #include <opencv2/highgui.hpp>
 #include <stdio.h>
 #include <opencv2/imgproc.hpp>
+#include <iostream>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
 using namespace std;
 using namespace cv;
@@ -343,8 +346,112 @@ void denoising() {
 	destroyAllWindows();
 }
 
+void sobel() {
+	Mat mat, gray, out, out2, out3, out4, out5;
+    mat = imread("assets/lena.png", IMREAD_COLOR);
+	cvtColor(mat, gray, COLOR_BGR2GRAY);
+	imshow("Original", mat);
+
+	Sobel(gray, out, CV_64F, 1, 0, 5); //Sobel Dx 
+	Sobel(gray, out2, CV_64F, 0, 1, 5); //Sobel Dy
+
+	int dx_ksize = 9;
+	int dy_ksize = 9;
+
+	Sobel(gray, out, CV_64F, 1, 0, dx_ksize);
+	Sobel(gray, out2, CV_64F, 0, 1, dy_ksize);
+
+	imshow("Sobel Dx", out);
+	imshow("Sobel Dy", out2);
+
+	waitKey();
+	destroyAllWindows();
+}
+
+/*
+Captures video from camera, and thresholds the RED color of the video.
+The good pixels are displayed in white while the bad pixels (which do not pass the thresholding) are black
+Original code: https://www.opencv-srf.com/2010/09/object-detection-using-color-seperation.html
+I added to the code the original image, after the mask applied (threshold mask) so we can see color instead of black and white elipse
+*/
+void red_color_threshold() {
+	VideoCapture cap(0); //capture the video from web cam
+
+    if ( !cap.isOpened() )  // if not success, exit program
+    {
+		cout << "Cannot open the web cam" << endl;
+        exit(1);
+    }
+
+    namedWindow("Control"); //create a window called "Control"
+
+	int iLowH = 0;
+	int iHighH = 179;
+
+	int iLowS = 0; 
+	int iHighS = 255;
+
+	int iLowV = 0;
+	int iHighV = 255;
+
+	//Create trackbars in "Control" window
+	
+	createTrackbar("LowH", "Control", &iLowH, 179); //Hue (0 - 179)
+	createTrackbar("HighH", "Control", &iHighH, 179);
+
+	createTrackbar("LowS", "Control", &iLowS, 255); //Saturation (0 - 255)
+	createTrackbar("HighS", "Control", &iHighS, 255);
+
+	createTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
+	createTrackbar("HighV", "Control", &iHighV, 255);
+
+    while (true)
+    {
+        Mat imgOriginal;
+
+        bool bSuccess = cap.read(imgOriginal); // read a new frame from video
+
+         if (!bSuccess) //if not success, break loop
+        {
+             cout << "Cannot read a frame from video stream" << endl;
+             break;
+        }
+
+		Mat imgHSV;
+
+		cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+		
+		Mat imgThresholded;
+
+		inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
+			
+		//morphological opening (remove small objects from the foreground)
+		erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
+		dilate( imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) ); 
+
+		//morphological closing (fill small holes in the foreground)
+		dilate( imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) ); 
+		erode(imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)) );
+
+		imshow("Thresholded Image - Mask", imgThresholded); //show the thresholded image
+		imshow("Original", imgOriginal); //show the original image
+
+		Mat imgAfterMask;
+		imgOriginal.copyTo(imgAfterMask, imgThresholded);
+
+		imshow("Thresholded Image", imgAfterMask); //I added this to the code to give it a little touch
+
+		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+		{
+			cout << "esc key is pressed by user" << endl;
+			break; 
+		}
+    }
+}
+
 int main()
 {
+	//sobel();
 	//image_color_histogram();
 	//binary_trunc_mask();
 	//color_mask();
@@ -353,7 +460,8 @@ int main()
 	//otsu_threshold();
     //laplican();
 	//adaptive_threshold();
+	//denoising();
 
-	denoising();
+	red_color_threshold();
     return 0;
 }
