@@ -42,7 +42,7 @@ void laplican() {
 	imshow("Laplican", mat3);
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void blurring()
@@ -92,7 +92,7 @@ void blurring()
 		ind++;
 	}
 
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 /*
@@ -148,7 +148,7 @@ void rgb() {
 	imshow("Red 2", mat3);
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 /*
@@ -180,7 +180,7 @@ void binary_trunc_mask() {
 	imshow("Trunc mask applied", output3);
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void color_mask() {
@@ -218,7 +218,7 @@ void color_mask() {
 	imshow("Binary mask applied (blue), only blue channel", output2);
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 //Code: https://docs.opencv.org/master/d8/dbc/tutorial_histogram_calculation.html
 void image_color_histogram()
@@ -275,7 +275,7 @@ void adaptive_threshold() {
 	imshow("Adaptive Threshold: Binary Gaussian", out2);
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void otsu_threshold() {
@@ -304,7 +304,7 @@ void otsu_threshold() {
 
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void denoising() {
@@ -345,7 +345,7 @@ void denoising() {
 	}
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void sobel() {
@@ -367,7 +367,7 @@ void sobel() {
 	imshow("Sobel Dy", out2);
 
 	waitKey();
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void hsv_color_picker() {
@@ -392,7 +392,7 @@ void hsv_color_picker() {
 			break;
 		}
 	}
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 /*
@@ -475,7 +475,7 @@ void hsv_threshold() {
 			break;
 		}
 	}
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 void canny_edge_detection() {
@@ -507,7 +507,7 @@ void canny_edge_detection() {
 		}
 	}
 
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 //Try to filter out noise to maximize output
@@ -604,7 +604,7 @@ void dilate_erode_mask() {
 			break;
 		}
 	}
-	destroyAllWindows();
+	cv::destroyAllWindows();
 }
 
 int main()
@@ -622,8 +622,8 @@ int main()
 	//hsv_color_picker();        //TODO: Fix
 	//hsv_threshold();
 	//canny_edge_detection();
+	//dilate_erode_mask();
 
-	dilate_erode_mask();
 
 
 	return 0;
