@@ -497,7 +497,7 @@ void canny_edge_detection() {
 			break;
 		}
 
-		Canny(imgGray, imgCanny, threshold1, threshold2);
+		Canny(imgOriginal, imgCanny, threshold1, threshold2);
 		imshow("Canny", imgCanny);
 
 		if (waitKey(1) == 27)
@@ -507,6 +507,103 @@ void canny_edge_detection() {
 		}
 	}
 
+	destroyAllWindows();
+}
+
+//Try to filter out noise to maximize output
+void dilate_erode_mask() {
+	VideoCapture cap(0); //capture the video from web cam
+
+
+	if (!cap.isOpened())  // if not success, exit program
+	{
+		cout << "Cannot open the web cam" << endl;
+		exit(1);
+	}
+
+	namedWindow("Control", WINDOW_FREERATIO); //create a window called "Control"
+
+	int iLowH = 0;
+	int iHighH = 179;
+
+	int iLowS = 0;
+	int iHighS = 255;
+
+	int iLowV = 0;
+	int iHighV = 255;
+
+	int morphType = 0;
+	int kernelSize = 5;
+
+	//Create trackbars in "Control" window
+
+	createTrackbar("LowH", "Control", &iLowH, 179); //Hue (0 - 179)
+	createTrackbar("HighH", "Control", &iHighH, 179);
+
+	createTrackbar("LowS", "Control", &iLowS, 255); //Saturation (0 - 255)
+	createTrackbar("HighS", "Control", &iHighS, 255);
+
+	createTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
+	createTrackbar("HighV", "Control", &iHighV, 255);
+
+	createTrackbar("Morph Type", "Control", &morphType, 3);
+	createTrackbar("Kernel Size", "Control", &kernelSize, 20);
+
+	while (true)
+	{
+		Mat imgOriginal;
+
+		bool bSuccess = cap.read(imgOriginal); // read a new frame from video
+
+		if (!bSuccess) //if not success, break loop
+		{
+			cout << "Cannot read a frame from video stream" << endl;
+			break;
+		}
+
+		Mat imgHSV;
+
+		cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+
+		Mat imgThresholded;
+
+		inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
+		
+
+		Mat kernel;
+		if (kernelSize <= 0)
+			kernelSize = 1;
+		Size s_kernel = Size(kernelSize, kernelSize);
+		if (morphType == 0) {
+			kernel = getStructuringElement(MORPH_ELLIPSE, s_kernel);
+		}
+		else if (morphType == 1) {
+			kernel = getStructuringElement(MORPH_RECT, s_kernel);
+		}
+		else {
+			kernel = getStructuringElement(MORPH_CROSS, s_kernel);
+		}
+		Mat imgThresholded_dilated, imgThresholded_eroded;
+		
+		dilate(imgThresholded, imgThresholded_dilated, kernel);
+		erode(imgThresholded, imgThresholded_eroded, kernel);
+
+		imshow("Mask", imgThresholded); //show the thresholded image
+		imshow("Mask - Dilated", imgThresholded_dilated); //Notice the white pixels are getting bigger
+		imshow("Mask - Eroded", imgThresholded_eroded);
+		
+
+		//Mat imgAfterMask;
+		//imgOriginal.copyTo(imgAfterMask, imgThresholded);
+
+		//imshow("Thresholded Image", imgAfterMask); //I added this to the code to give it a little touch
+
+		if (waitKey(1) == 27)
+		{
+			cout << "esc key is pressed by user" << endl;
+			break;
+		}
+	}
 	destroyAllWindows();
 }
 
@@ -524,8 +621,9 @@ int main()
 	//denoising();
 	//hsv_color_picker();        //TODO: Fix
 	//hsv_threshold();
-	canny_edge_detection();
+	//canny_edge_detection();
 
+	dilate_erode_mask();
 
 
 	return 0;
