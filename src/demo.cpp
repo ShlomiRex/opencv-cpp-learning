@@ -384,7 +384,8 @@ void hsv_color_picker() {
 		mat1 = Mat(800, 600, CV_8UC3);
 		mat1.convertTo(mat1, COLOR_BGR2HSV);
 		mat1.setTo(Scalar(hue, saturation, value));
-		mat1.convertTo(mat1, COLOR_HSV2BGR);
+		
+		cvtColor(mat1, mat1, COLOR_HSV2BGR);
 		imshow("Color", mat1);
 		if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
 		{
@@ -607,8 +608,74 @@ void dilate_erode_mask() {
 	cv::destroyAllWindows();
 }
 
+void hist_eq() {
+	// Read the image file
+	Mat image = imread("assets/lena.png");
+
+	//change the color image to grayscale image
+	cvtColor(image, image, COLOR_BGR2GRAY);
+
+	//equalize the histogram
+	Mat hist_equalized_image;
+	equalizeHist(image, hist_equalized_image);
+
+	//Define names of windows
+	String windowNameOfOriginalImage = "Original Image";
+	String windowNameOfHistogramEqualized = "Histogram Equalized Image";
+
+	// Create windows with the above names
+	namedWindow(windowNameOfOriginalImage);
+	namedWindow(windowNameOfHistogramEqualized);
+
+	// Show images inside created windows.
+	imshow(windowNameOfOriginalImage, image);
+	imshow(windowNameOfHistogramEqualized, hist_equalized_image);
+
+	waitKey(0); // Wait for any keystroke in one of the windows
+
+	destroyAllWindows(); //Destroy all open windows
+}
+
+void color_spaces() {
+	Mat img = imread("assets/lena.png");
+	Mat gray_img, hsv_img, hls_img, luv_img, yuv_img, lab_img;
+	cvtColor(img, gray_img, COLOR_BGR2GRAY);
+	cvtColor(img, hsv_img, COLOR_BGR2HSV);
+	cvtColor(img, hls_img, COLOR_BGR2HLS);
+	cvtColor(img, luv_img, COLOR_BGR2Luv);
+	cvtColor(img, yuv_img, COLOR_BGR2YUV);
+	cvtColor(img, lab_img, COLOR_BGR2Lab);
+	imshow("Gray image", gray_img);
+	imshow("HSV Image", hsv_img);
+	imshow("HLS Image", hls_img);
+	imshow("Luv Image", luv_img);
+	imshow("YUV Image", yuv_img);
+	imshow("Lab Image", lab_img);
+	waitKey();
+	destroyAllWindows();
+}
+
+void video_capture() {
+	VideoCapture cap(0);
+	if (!cap.isOpened()) {
+		perror("Could not open default camera.");
+		waitKey();
+		exit(1);
+	}
+	while (1) {
+		Mat frame;
+		cap >> frame;
+		if (frame.empty()) break; // end of video stream
+		imshow("this is you, smile! :)", frame);
+		if (waitKey(10) == 27) break; // stop capturing by pressing ESC 
+	}
+	destroyAllWindows();
+}
+
 int main()
 {
+	//color_spaces();
+	//video_capture();
 	//sobel();
 	//image_color_histogram();
 	//binary_trunc_mask();
@@ -619,12 +686,11 @@ int main()
 	//laplican();
 	//adaptive_threshold();
 	//denoising();
-	//hsv_color_picker();        //TODO: Fix
+	//hsv_color_picker();
 	//hsv_threshold();
 	//canny_edge_detection();
 	//dilate_erode_mask();
-
-
+	//hist_eq();
 
 	return 0;
 }
