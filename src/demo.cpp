@@ -746,7 +746,7 @@ int main()
 	//dilate_erode_mask();
 	//hist_eq();
 
-	haar_eye_cascade();
+	face_detection_haar_cascade();
 
 	return 0;
 }
