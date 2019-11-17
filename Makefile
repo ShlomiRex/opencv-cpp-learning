@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/shlomi/Desktop/workspace/opencv
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -123,32 +123,6 @@ demo/fast:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
 .PHONY : demo/fast
 
-#=============================================================================
-# Target rules for targets named app
-
-# Build rule for target.
-app: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 app
-.PHONY : app
-
-# fast build rule for target.
-app/fast:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/build
-.PHONY : app/fast
-
-#=============================================================================
-# Target rules for targets named hist_eq
-
-# Build rule for target.
-hist_eq: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hist_eq
-.PHONY : hist_eq
-
-# fast build rule for target.
-hist_eq/fast:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/build
-.PHONY : hist_eq/fast
-
 src/demo.o: src/demo.cpp.o
 
 .PHONY : src/demo.o
@@ -176,80 +150,18 @@ src/demo.cpp.s:
 	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.s
 .PHONY : src/demo.cpp.s
 
-src/hist_eq.o: src/hist_eq.cpp.o
-
-.PHONY : src/hist_eq.o
-
-# target to build an object file
-src/hist_eq.cpp.o:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/src/hist_eq.cpp.o
-.PHONY : src/hist_eq.cpp.o
-
-src/hist_eq.i: src/hist_eq.cpp.i
-
-.PHONY : src/hist_eq.i
-
-# target to preprocess a source file
-src/hist_eq.cpp.i:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/src/hist_eq.cpp.i
-.PHONY : src/hist_eq.cpp.i
-
-src/hist_eq.s: src/hist_eq.cpp.s
-
-.PHONY : src/hist_eq.s
-
-# target to generate assembly for a file
-src/hist_eq.cpp.s:
-	$(MAKE) -f CMakeFiles/hist_eq.dir/build.make CMakeFiles/hist_eq.dir/src/hist_eq.cpp.s
-.PHONY : src/hist_eq.cpp.s
-
-src/main.o: src/main.cpp.o
-
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... rebuild_cache"
 	@echo "... demo"
 	@echo "... edit_cache"
-	@echo "... app"
-	@echo "... rebuild_cache"
-	@echo "... hist_eq"
 	@echo "... src/demo.o"
 	@echo "... src/demo.i"
 	@echo "... src/demo.s"
-	@echo "... src/hist_eq.o"
-	@echo "... src/hist_eq.i"
-	@echo "... src/hist_eq.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
 .PHONY : help
 
 
